@@ -3,15 +3,14 @@ const Fun=require('./Function')
 const app = express();
 const port = 9000;
 
-// Endpoint for + and *
-app.get('/:function/:var_1/:var_2', (req, res) => {
-  // Retrieve variables from the URL
+function response(req,res) {
   const var_f = req.params.function;
   const var_1 = parseFloat(req.params.var_1);
   const var_2 = parseFloat(req.params.var_2);
 
   // Check if the variables are valid numbers
   if (isNaN(var_1) || isNaN(var_2)) {
+    
     return res.status(400).json({ error: 'Variables must be valid numbers.' });
   }
 
@@ -33,6 +32,11 @@ app.get('/:function/:var_1/:var_2', (req, res) => {
   // Return the response in JSON
   console.log(`Response: ${response}`);
   res.json({ response: `Operation result of ${var_1} ${var_f} ${var_2} is : ${response}` });
+}
+// Endpoint for + and *
+app.get('/:function/:var_1/:var_2', (req, res) => {
+  // Retrieve variables from the URL
+  response(req,res);
 });
 
 // Start the server
